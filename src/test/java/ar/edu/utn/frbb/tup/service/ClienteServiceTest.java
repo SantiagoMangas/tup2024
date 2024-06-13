@@ -67,8 +67,6 @@ public class ClienteServiceTest {
         assertThrows(ClienteAlreadyExistsException.class, () -> clienteService.darDeAltaCliente(pepeRino));
     }
 
-
-
     @Test
     public void testAgregarCuentaAClienteSuccess() throws TipoCuentaAlreadyExistsException {
         Cliente pepeRino = new Cliente();
@@ -125,7 +123,86 @@ public class ClienteServiceTest {
 
     }
 
-    //Agregar una CA$ y CC$ --> success 2 cuentas, titular peperino
-    //Agregar una CA$ y CAU$S --> success 2 cuentas, titular peperino...
-    //Testear clienteService.buscarPorDni
+    @Test
+    public void testAgregarCACC() throws TipoCuentaAlreadyExistsException {
+        Cliente santiago = new Cliente();
+        santiago.setDni(45607866);
+        santiago.setNombre("Santiago");
+        santiago.setApellido("Mangas");
+        santiago.setFechaNacimiento(LocalDate.of(2005, 1,24));
+        santiago.setTipoPersona(TipoPersona.PERSONA_FISICA);
+
+        when(clienteDao.find(45607866, true)).thenReturn(santiago);
+
+        Cuenta cuentaCA = new Cuenta()
+            .setMoneda(TipoMoneda.PESOS)
+            .setBalance(20000)
+            .setTipoCuenta(TipoCuenta.CAJA_AHORRO);
+
+        clienteService.agregarCuenta(cuentaCA, santiago.getDni());
+        
+        Cuenta cuentaCC = new Cuenta()
+            .setMoneda(TipoMoneda.PESOS)
+            .setBalance(20000)
+            .setTipoCuenta(TipoCuenta.CUENTA_CORRIENTE);
+        
+        clienteService.agregarCuenta(cuentaCC, santiago.getDni());
+            
+        verify(clienteDao, times(2)).save(santiago);
+        assertEquals(2, santiago.getCuentas().size());
+        assertEquals(santiago, cuentaCA.getTitular());
+        assertEquals(santiago, cuentaCC.getTitular()); 
+        assertFalse(true, "Fail on purpose");
+        //assertThrows(TipoCuentaAlreadyExistsException.class, () -> clienteService.darDeAltaCliente(santiago));
+    }
+
+    @Test
+    public void testAgregarCACAU() throws TipoCuentaAlreadyExistsException {
+        Cliente santiago = new Cliente();
+        santiago.setDni(45607866);
+        santiago.setNombre("Santiago");
+        santiago.setApellido("Mangas");
+        santiago.setFechaNacimiento(LocalDate.of(2005, 1,24));
+        santiago.setTipoPersona(TipoPersona.PERSONA_FISICA);
+
+        Cuenta cuentaCA = new Cuenta()
+            .setMoneda(TipoMoneda.PESOS)
+            .setBalance(20000)
+            .setTipoCuenta(TipoCuenta.CAJA_AHORRO);
+        Cuenta cuentaCAU = new Cuenta()
+            .setMoneda(TipoMoneda.DOLARES)
+            .setBalance(20000)
+            .setTipoCuenta(TipoCuenta.CAJA_AHORRO);
+        
+        clienteService.agregarCuenta(cuentaCA, santiago.getDni());
+        clienteService.agregarCuenta(cuentaCAU, santiago.getDni());
+                
+        verify(clienteDao, times(2)).save(santiago);
+        assertEquals(2, santiago.getCuentas().size());
+        assertEquals(santiago, cuentaCA.getTitular());
+        assertEquals(santiago, cuentaCAU.getTitular()); 
+    }
+
+    @Test
+    public void testBuscarPorDniCasoExito(){
+        Cliente santiago = new Cliente();
+        santiago.setDni(45607866);
+        santiago.setNombre("Santiago");
+        santiago.setApellido("Mangas");
+        santiago.setFechaNacimiento(LocalDate.of(2005, 1, 24));
+        santiago.setTipoPersona(TipoPersona.PERSONA_FISICA);
+
+        when(clienteDao.find(45607866,true)).thenReturn(santiago);
+        
+        Cliente clienteTest = clienteService.buscarClientePorDni(45607866);
+
+        assertEquals(santiago, clienteTest);
+    }
+
+    @Test
+    public void testBuscarPorDniCasoFalla(){
+
+        when(clienteDao.find(45607866,false)).thenReturn(null);
+        assertThrows(IllegalArgumentException.class, () -> clienteService.buscarClientePorDni(45607866));
+    } 
 }

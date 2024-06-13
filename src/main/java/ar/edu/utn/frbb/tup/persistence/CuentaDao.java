@@ -7,7 +7,16 @@ import ar.edu.utn.frbb.tup.persistence.entity.CuentaEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CuentaDao  extends AbstractBaseDao{
+import javax.xml.ws.Action;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+@Service
+public class CuentaDao extends AbstractBaseDao{
+
+    @Autowired
+    ClienteDao clientedao;
+
     @Override
     protected String getEntityName() {
         return "CUENTA";
