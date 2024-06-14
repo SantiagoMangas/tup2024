@@ -28,13 +28,11 @@ public class CuentaService {
         if (!tipoCuentaEstaSoportada(cuenta)){
             throw new TipoCuentaNoSoportadaException("La cuenta " + cuenta.getNumeroCuenta() + " no es soportada por el banco.");
         }
-
-        clienteService.agregarCuenta(cuenta, dniTitular);
         cuentaDao.save(cuenta);
     }
 
     public boolean tipoCuentaEstaSoportada(Cuenta cuenta){
-        if(cuenta.getTipoCuenta() != TipoCuenta.CUENTA_CORRIENTE && cuenta.getMoneda() != TipoMoneda.DOLARES){
+        if (cuenta.getTipoCuenta().equals(TipoCuenta.CUENTA_CORRIENTE) && cuenta.getMoneda().equals(TipoMoneda.DOLARES)){
             return true;
         }
         return false;
