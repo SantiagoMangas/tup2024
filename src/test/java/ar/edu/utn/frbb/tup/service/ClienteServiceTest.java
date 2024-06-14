@@ -202,7 +202,7 @@ public class ClienteServiceTest {
     @Test
     public void testBuscarPorDniCasoFalla(){
 
-        when(clienteDao.find(45607866,false)).thenReturn(null);
+        when(clienteDao.find(45607866,true)).thenReturn(null);
         assertThrows(IllegalArgumentException.class, () -> clienteService.buscarClientePorDni(45607866));
     } 
 }
