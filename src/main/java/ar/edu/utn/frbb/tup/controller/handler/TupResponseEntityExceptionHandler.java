@@ -46,7 +46,6 @@ public class TupResponseEntityExceptionHandler extends ResponseEntityExceptionHa
             error.setErrorMessage(ex.getMessage());
             body = error;
         }
-
         return new ResponseEntity(body, headers, status);
     }
 
