@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 import ar.edu.utn.frbb.tup.controller.CuentaDto;
+import ar.edu.utn.frbb.tup.model.enumsModels.TipoCuenta;
+import ar.edu.utn.frbb.tup.model.enumsModels.TipoMoneda;
 
 public class Cuenta {
     private long numeroCuenta;
