@@ -16,7 +16,6 @@ public class Prestamo {
     public Prestamo() {
     }
 
-
     public Prestamo(long numeroCliente, int plazoMeses, long montoPedido, TipoMoneda moneda) {
         this.numeroCliente = numeroCliente;
         this.plazoMeses = plazoMeses;
