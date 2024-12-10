@@ -1,5 +1,6 @@
 package ar.edu.utn.frbb.tup.model;
 
+import ar.edu.utn.frbb.tup.controller.dto.PrestamoDto;
 import ar.edu.utn.frbb.tup.model.enumsModels.TipoMoneda;
 
 public class Prestamo {
@@ -28,10 +29,22 @@ public class Prestamo {
         this.moneda = moneda;
     }
 
+    public Prestamo(PrestamoDto prestamoDto) {
+        this(prestamoDto.getNumeroCliente(), prestamoDto.getPlazoMeses(), prestamoDto.getMonto(), TipoMoneda.fromString(prestamoDto.getMoneda()));
+        this.montoConIntereses = (long) (prestamoDto.getMonto() * 1.05);
+        this.saldoRestante = this.montoConIntereses;
+        this.valorCuota = (long) (this.montoConIntereses / this.plazoMeses);
+        this.cuotasPagas = 0;
+    }
+
     public void pagarCuota() {
         this.saldoRestante = this.saldoRestante - this.valorCuota;
         this.cuotasPagas++;
     } // Método para pagar una cuota
+    
+    public boolean estaPagado() {
+        return cuotasPagas == plazoMeses || saldoRestante == 0;
+    }
 
     public long getId() {
         return id;
