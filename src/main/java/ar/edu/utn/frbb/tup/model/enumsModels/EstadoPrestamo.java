@@ -20,6 +20,6 @@ public enum EstadoPrestamo {
                 return estado;
             }
         }
-        throw new IllegalArgumentException("Código de estado inválido: " + codigo);
+        throw new IllegalArgumentException("Código de estado del préstamo inválido: " + codigo);
     }
 }
