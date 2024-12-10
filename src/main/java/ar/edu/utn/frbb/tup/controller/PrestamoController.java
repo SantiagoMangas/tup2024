@@ -30,7 +30,8 @@ public class PrestamoController {
     public PrestamoResultado crearPrestamo(@RequestBody PrestamoDto prestamoDto) 
             throws CuentaNotFoundException, ClienteNotFoundException, TipoMonedaNoSoportadaException, CampoVacioException {
         prestamoValidator.validate(prestamoDto); 
-        return prestamoService.solicitarPrestamo(prestamoDto);
+        PrestamoResultado prestamoResultado = prestamoService.solicitarPrestamo(prestamoDto);
+        return prestamoResultado;
     }
 
     @GetMapping("/{dni}")

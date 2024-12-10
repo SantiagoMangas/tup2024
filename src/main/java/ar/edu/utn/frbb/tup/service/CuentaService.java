@@ -15,9 +15,6 @@ import ar.edu.utn.frbb.tup.persistence.CuentaDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Component
 public class CuentaService {
 
@@ -26,13 +23,7 @@ public class CuentaService {
 
     @Autowired
     ClienteService clienteService;
-
-    //Generar casos de test para darDeAltaCuenta
-    //    1 - cuenta existente
-    //    2 - cuenta no soportada
-    //    3 - cliente ya tiene cuenta de ese tipo
-    //    4 - cuenta creada exitosamente
-
+    
     public Cuenta darDeAltaCuenta(CuentaDto cuentaDto) throws CuentaAlreadyExistsException, TipoCuentaNoSoportadaException, TipoCuentaAlreadyExistsException, ClienteNotFoundException {
         Cuenta cuenta = new Cuenta(cuentaDto);
 

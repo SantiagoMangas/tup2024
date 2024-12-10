@@ -7,6 +7,8 @@ import ar.edu.utn.frbb.tup.model.enumsModels.TipoCuenta;
 import ar.edu.utn.frbb.tup.model.enumsModels.TipoMoneda;
 import ar.edu.utn.frbb.tup.model.enumsModels.TipoPersona;
 import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteAlreadyExistsException;
+import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteMenorDeEdadException;
+import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteNotFoundException;
 import ar.edu.utn.frbb.tup.model.exception.cuentasException.TipoCuentaAlreadyExistsException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,7 +52,7 @@ public class ClienteServiceTest {
     }
 
     @Test
-    public void testClienteSuccess() throws ClienteAlreadyExistsException {
+    public void testClienteSuccess() throws ClienteAlreadyExistsException, ClienteMenorDeEdadException {
         ClienteDto cliente = new ClienteDto();
         cliente.setFechaNacimiento("1978-03-18");
         cliente.setDni(29857643);
@@ -77,7 +79,7 @@ public class ClienteServiceTest {
 
 
     @Test
-    public void testAgregarCuentaAClienteSuccess() throws TipoCuentaAlreadyExistsException {
+    public void testAgregarCuentaAClienteSuccess() throws TipoCuentaAlreadyExistsException, ClienteNotFoundException {
         Cliente pepeRino = new Cliente();
         pepeRino.setDni(26456439);
         pepeRino.setNombre("Pepe");
@@ -103,7 +105,7 @@ public class ClienteServiceTest {
 
 
     @Test
-    public void testAgregarCuentaAClienteDuplicada() throws TipoCuentaAlreadyExistsException {
+    public void testAgregarCuentaAClienteDuplicada() throws TipoCuentaAlreadyExistsException, ClienteNotFoundException {
         Cliente luciano = new Cliente();
         luciano.setDni(26456439);
         luciano.setNombre("Pepe");

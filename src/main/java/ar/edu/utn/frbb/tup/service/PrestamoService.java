@@ -9,7 +9,6 @@ import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteNotFoundExce
 import ar.edu.utn.frbb.tup.model.exception.cuentasException.CuentaNotFoundException;
 import ar.edu.utn.frbb.tup.model.exception.cuentasException.NoAlcanzaException;
 import ar.edu.utn.frbb.tup.model.exception.prestamosException.PrestamoNotFoundException;
-import ar.edu.utn.frbb.tup.model.exception.prestamosException.PrestamoPagadoException;
 import ar.edu.utn.frbb.tup.persistence.PrestamoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,24 +35,29 @@ public class PrestamoService {
         if (prestamoDto.getMonto() <= 0 || prestamoDto.getPlazoMeses() <= 0) {
             throw new IllegalArgumentException("El monto y el plazo deben ser mayores a cero.");
         }
-
+    
         Prestamo prestamo = new Prestamo(prestamoDto);
-
+    
         if (!randomEstadoService.verifyEstado(prestamo.getNumeroCliente())) {
             PrestamoResultado resultado = new PrestamoResultado();
             resultado.setEstado(EstadoPrestamo.RECHAZADO);
             resultado.setMensaje("El cliente no tiene un crédito apto para solicitar un préstamo.");
             return resultado;
         }
-
+    
+        // Realiza las operaciones necesarias con cliente y cuenta
         clienteService.agregarPrestamo(prestamo, prestamo.getNumeroCliente());
         cuentaService.actualizarCuenta(prestamo);
         prestamoDao.save(prestamo);
-
+    
+        // Ya esta el monto con intereses calculado dentro de prestamo
+        double montoConIntereses = prestamo.getMontoConIntereses();
+    
         PrestamoResultado resultado = new PrestamoResultado();
         resultado.setEstado(EstadoPrestamo.APROBADO);
         resultado.setMensaje("El monto del préstamo fue acreditado en su cuenta.");
-        resultado.setPlanPago(calcularPlanPago(prestamo.getPlazoMeses(), prestamo.getMontoPedido()));
+        resultado.setPlanPago(calcularPlanPago(prestamo.getPlazoMeses(), montoConIntereses));
+    
         return resultado;
     }
 
@@ -75,7 +79,6 @@ public class PrestamoService {
         prestamoDao.save(prestamo);
         return prestamo;
     }
-    
 
     public List<PlanPago> calcularPlanPago(int plazoMeses, double montoConIntereses) {
         List<PlanPago> plan = new ArrayList<>();

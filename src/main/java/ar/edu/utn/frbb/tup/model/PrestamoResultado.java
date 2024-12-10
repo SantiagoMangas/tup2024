@@ -11,6 +11,7 @@ public class PrestamoResultado {
 
     public PrestamoResultado() {
     }
+    
     public PrestamoResultado(EstadoPrestamo estado, String mensaje, List<PlanPago> planPago) {
         this.estado = estado;
         this.mensaje = mensaje;
