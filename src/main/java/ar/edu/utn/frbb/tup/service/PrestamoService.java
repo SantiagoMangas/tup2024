@@ -6,9 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.utn.frbb.tup.controller.dto.PrestamoDto;
 import ar.edu.utn.frbb.tup.model.Cuenta;
 import ar.edu.utn.frbb.tup.model.PlanPago;
+import ar.edu.utn.frbb.tup.model.Prestamo;
 import ar.edu.utn.frbb.tup.model.PrestamoResultado;
+import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteNotFoundException;
+import ar.edu.utn.frbb.tup.model.exception.cuentasException.CuentaNotFoundException;
 import ar.edu.utn.frbb.tup.persistence.PrestamoDao;
 
 @Service
@@ -28,7 +32,9 @@ public class PrestamoService {
 
     public PrestamoResultado solicitarPrestamo(PrestamoDto prestamoDto) 
         throws CuentaNotFoundException, ClienteNotFoundException {
+            Prestamo prestamo = new Prestamo(prestamoDto);
             
+            return null;
         }
 
     public List<PlanPago> calcularPlanPago(int plazoMeses, double montoConIntereses) {
