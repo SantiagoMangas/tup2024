@@ -10,7 +10,7 @@ import java.util.Random;
  */
 
 @Service
-public class RandomEstadoService {
+public class ScoreCreditService {
     private final Random random = new Random();
 
     public boolean verifyEstado(long dni) {

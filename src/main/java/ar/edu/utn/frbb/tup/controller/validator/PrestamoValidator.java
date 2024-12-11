@@ -14,33 +14,31 @@ public class PrestamoValidator {
         validateMoneda(prestamoDto);
     }
 
-    // Validar que el tipo de moneda esté soportado
     public void validateMoneda(PrestamoDto prestamoDto) throws TipoMonedaNoSoportadaException {
         if ((!"P".equals(prestamoDto.getMoneda()) && !"D".equals(prestamoDto.getMoneda()))) {
             throw new TipoMonedaNoSoportadaException("El tipo de moneda no es correcto o es nulo");
         }
     }
 
-    // Validar otros campos
-    public void validateDatosCompletos(PrestamoDto prestamoDto) throws CampoVacioException, TipoMonedaNoSoportadaException {
-        // número de cliente
-        if (prestamoDto.getNumeroCliente() <= 0) {
+    public void validateDatosCompletos(PrestamoDto prestamoDto) throws CampoVacioException {
+        // Validar número de cliente
+        if (prestamoDto.getNumeroCliente() == 0) {
             throw new CampoVacioException("Error: Ingrese un número de cliente válido");
         }
 
-        //plazo en meses
+        // Validar plazo en meses
         if (prestamoDto.getPlazoMeses() <= 0) {
             throw new CampoVacioException("Error: Ingrese un plazo en meses válido");
         }
 
-        // monto de préstamo
+        // Validar monto de préstamo
         if (prestamoDto.getMonto() <= 0) {
             throw new CampoVacioException("Error: Ingrese un monto de préstamo válido");
         }
 
-        // moneda
-        if (!"P".equalsIgnoreCase(prestamoDto.getMoneda()) && !"D".equalsIgnoreCase(prestamoDto.getMoneda())) {
-            throw new TipoMonedaNoSoportadaException("El tipo de moneda no es correcto o es nulo");
+        // Validar moneda
+        if (prestamoDto.getMoneda() == null || prestamoDto.getMoneda().isEmpty()) {
+            throw new CampoVacioException("Error: Ingrese una moneda válida");
         }
     }
 }

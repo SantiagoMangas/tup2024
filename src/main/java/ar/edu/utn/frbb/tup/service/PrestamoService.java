@@ -29,7 +29,7 @@ public class PrestamoService {
     private PrestamoDao prestamoDao;
 
     @Autowired
-    private RandomEstadoService randomEstadoService;
+    private ScoreCreditService randomEstadoService;
 
     public PrestamoResultado solicitarPrestamo(PrestamoDto prestamoDto) throws CuentaNotFoundException, ClienteNotFoundException {
         if (prestamoDto.getMonto() <= 0 || prestamoDto.getPlazoMeses() <= 0) {

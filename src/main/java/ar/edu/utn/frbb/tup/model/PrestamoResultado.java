@@ -36,5 +36,8 @@ public class PrestamoResultado {
 
     public void setPlanPago(List<PlanPago> planPago) {
         this.planPago = planPago; 
-    }    
+    }
+    public List<PlanPago> getPlanPago() {
+        return planPago;
+    }
 }
