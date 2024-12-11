@@ -93,9 +93,9 @@ Enviar una petición `POST` a `/api/cuenta` con el cuerpo basado en **CuentaDto*
 Enviar una petición `POST` a `/api/prestamo` con el cuerpo basado en **PrestamoDto**:
 ```json
 {
+  "moneda": "P",
+  "monto": 900000,
   "numeroCliente": 12345678,
-  "monto": 100000,
-  "plazoMeses": 12,
-  "moneda": "P"
+  "plazoMeses": 12
 }
 ```
