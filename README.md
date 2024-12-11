@@ -96,6 +96,6 @@ Enviar una petición `POST` a `/api/prestamo` con el cuerpo basado en **Prestamo
   "numeroCliente": 12345678,
   "monto": 100000,
   "plazoMeses": 12,
-  "moneda": "PESOS"
+  "moneda": "P"
 }
 ```
