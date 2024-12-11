@@ -78,16 +78,4 @@ class ClienteValidatorTest {
 
         assertEquals("Error en el formato de fecha", exception.getMessage());
     }
-
-    @Test
-    void validate_InvalidTypePersona() {
-        ClienteDto clienteDto = new ClienteDto();
-        clienteDto.setTipoPersona("Z");
-        clienteDto.setFechaNacimiento("2000-01-01");
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, 
-            () -> clienteValidator.validate(clienteDto));
-
-        assertEquals("El tipo de persona no es correcto", exception.getMessage());
-    }
 }

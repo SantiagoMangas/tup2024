@@ -9,6 +9,9 @@ import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteAlreadyExist
 import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteMenorDeEdadException;
 import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteNotFoundException;
 import ar.edu.utn.frbb.tup.service.ClienteService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +25,6 @@ public class ClienteController {
     @Autowired
     private ClienteValidator clienteValidator;
 
-    /**
-     * Endpoint para crear un nuevo cliente.
-     */
     @PostMapping
     public Cliente crearCliente(@RequestBody ClienteDto clienteDto) 
             throws TipoPersonaErroneoException, ClienteMenorDeEdadException, ClienteAlreadyExistsException, CampoVacioException {
@@ -32,9 +32,11 @@ public class ClienteController {
         return clienteService.darDeAltaCliente(clienteDto);
     }
 
-    /**
-     * Endpoint para buscar un cliente por su DNI.
-     */
+    @GetMapping("/all")
+    public List<Cliente> buscarTodosLosClientes() {
+        return clienteService.buscarTodosLosClientes();
+    }
+
     @GetMapping("/{dni}")
     public Cliente buscarClientePorDni(@PathVariable long dni) 
             throws ClienteNotFoundException {

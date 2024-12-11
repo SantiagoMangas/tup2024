@@ -10,6 +10,9 @@ import ar.edu.utn.frbb.tup.model.exception.clientesException.ClienteNotFoundExce
 import ar.edu.utn.frbb.tup.model.exception.cuentasException.CuentaNotFoundException;
 import ar.edu.utn.frbb.tup.model.exception.cuentasException.TipoCuentaAlreadyExistsException;
 import ar.edu.utn.frbb.tup.persistence.ClienteDao;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -56,7 +59,11 @@ public class ClienteService {
         }
         return cliente;
     }
-    
+
+    public List<Cliente> buscarTodosLosClientes() {
+        return clienteDao.findAll();
+    }
+
     public void agregarPrestamo (Prestamo prestamo, long dniTitular) throws ClienteNotFoundException, CuentaNotFoundException {
         Cliente titular = buscarClientePorDni(dniTitular);
         prestamo.setNumeroCliente(titular.getDni());
