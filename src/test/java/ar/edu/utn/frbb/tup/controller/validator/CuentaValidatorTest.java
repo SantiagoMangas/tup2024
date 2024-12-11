@@ -1,4 +1,4 @@
-package ar.edu.utn.frbb.tup.validator;
+package ar.edu.utn.frbb.tup.controller.validator;
 
 import ar.edu.utn.frbb.tup.controller.dto.CuentaDto;
 import ar.edu.utn.frbb.tup.controller.validator.CuentaValidator;
@@ -32,7 +32,7 @@ class CuentaValidatorTest {
     @Test
     void validateDatosCompletos_MissingFields() {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setTipoCuenta(""); // Falta el tipo de cuenta
+        cuentaDto.setTipoCuenta("");
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 
             () -> cuentaValidator.validateDatosCompletos(cuentaDto));
@@ -43,7 +43,7 @@ class CuentaValidatorTest {
     @Test
     void validateTipoCuenta_Success() throws TipoCuentaNoSoportadaException {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setTipoCuenta("A"); // Tipo válido: "A" = Ahorro
+        cuentaDto.setTipoCuenta("A");
 
         assertDoesNotThrow(() -> cuentaValidator.validateTipoCuenta(cuentaDto));
     }
@@ -51,7 +51,7 @@ class CuentaValidatorTest {
     @Test
     void validateTipoCuenta_InvalidType() {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setTipoCuenta("X"); // Tipo inválido
+        cuentaDto.setTipoCuenta("X");
 
         TipoCuentaNoSoportadaException exception = assertThrows(TipoCuentaNoSoportadaException.class, 
             () -> cuentaValidator.validateTipoCuenta(cuentaDto));
@@ -62,7 +62,7 @@ class CuentaValidatorTest {
     @Test
     void validateMoneda_Success() {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setMoneda("D"); // Moneda válida: "D" = Dólares
+        cuentaDto.setMoneda("D");
 
         assertDoesNotThrow(() -> cuentaValidator.validateMoneda(cuentaDto));
     }
@@ -70,7 +70,7 @@ class CuentaValidatorTest {
     @Test
     void validateMoneda_InvalidCurrency() {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setMoneda("E"); // Moneda inválida
+        cuentaDto.setMoneda("E");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, 
             () -> cuentaValidator.validateMoneda(cuentaDto));
@@ -91,7 +91,7 @@ class CuentaValidatorTest {
     @Test
     void validate_InvalidTipoCuenta() {
         CuentaDto cuentaDto = new CuentaDto();
-        cuentaDto.setTipoCuenta("X"); // Tipo cuenta inválido
+        cuentaDto.setTipoCuenta("X"); 
         cuentaDto.setMoneda("P");
         cuentaDto.setDniTitular(12345678L);
 
@@ -105,7 +105,7 @@ class CuentaValidatorTest {
     void validate_InvalidMoneda() {
         CuentaDto cuentaDto = new CuentaDto();
         cuentaDto.setTipoCuenta("C");
-        cuentaDto.setMoneda("E"); // Moneda inválida
+        cuentaDto.setMoneda("E"); 
         cuentaDto.setDniTitular(12345678L);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, 
@@ -119,7 +119,7 @@ class CuentaValidatorTest {
         CuentaDto cuentaDto = new CuentaDto();
         cuentaDto.setTipoCuenta("C");
         cuentaDto.setMoneda("P");
-        cuentaDto.setDniTitular(0); // DniTitular no válido
+        cuentaDto.setDniTitular(0);
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 
             () -> cuentaValidator.validate(cuentaDto));

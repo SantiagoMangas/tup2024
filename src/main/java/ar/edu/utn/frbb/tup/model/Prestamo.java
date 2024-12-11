@@ -24,7 +24,7 @@ public class Prestamo {
         this.montoConIntereses = (long) (montoPedido * 1.1); //interés fijo del 10% con conversion a long para trabajar con valores enteros
         this.valorCuota = (long) (this.montoConIntereses / this.plazoMeses); // Valor de la cuota fija 
         this.cuotasPagas = 0;
-        this.saldoRestante = this.montoConIntereses; // Saldo deudor a pagar
+        this.saldoRestante = this.montoConIntereses;
         this.cuotasPagas = 0;
         this.moneda = moneda;
     }

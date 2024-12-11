@@ -1,4 +1,4 @@
-package ar.edu.utn.frbb.tup.validator;
+package ar.edu.utn.frbb.tup.controller.validator;
 
 import ar.edu.utn.frbb.tup.controller.dto.PrestamoDto;
 import ar.edu.utn.frbb.tup.controller.validator.PrestamoValidator;
@@ -32,7 +32,7 @@ class PrestamoValidatorTest {
     @Test
     void validateDatosCompletos_MissingNumeroCliente() {
         PrestamoDto prestamoDto = new PrestamoDto();
-        prestamoDto.setNumeroCliente(0); // Número de cliente inválido
+        prestamoDto.setNumeroCliente(0);
         prestamoDto.setPlazoMeses(12);
         prestamoDto.setMonto(50000);
         prestamoDto.setMoneda("P");
@@ -48,7 +48,7 @@ class PrestamoValidatorTest {
         PrestamoDto prestamoDto = new PrestamoDto();
         prestamoDto.setNumeroCliente(123456);
         prestamoDto.setPlazoMeses(12);
-        prestamoDto.setMonto(0); // Monto no válido
+        prestamoDto.setMonto(0); 
         prestamoDto.setMoneda("P");
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 
@@ -63,7 +63,7 @@ class PrestamoValidatorTest {
         prestamoDto.setNumeroCliente(123456);
         prestamoDto.setPlazoMeses(12);
         prestamoDto.setMonto(50000);
-        prestamoDto.setMoneda(""); // Moneda vacía
+        prestamoDto.setMoneda(""); 
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 
             () -> prestamoValidator.validateDatosCompletos(prestamoDto));
@@ -82,7 +82,7 @@ class PrestamoValidatorTest {
     @Test
     void validateMoneda_InvalidMoneda() {
         PrestamoDto prestamoDto = new PrestamoDto();
-        prestamoDto.setMoneda("E"); // Moneda no soportada
+        prestamoDto.setMoneda("E");
 
         TipoMonedaNoSoportadaException exception = assertThrows(TipoMonedaNoSoportadaException.class, 
             () -> prestamoValidator.validateMoneda(prestamoDto));
@@ -107,7 +107,7 @@ class PrestamoValidatorTest {
         prestamoDto.setNumeroCliente(123456);
         prestamoDto.setPlazoMeses(24);
         prestamoDto.setMonto(100000);
-        prestamoDto.setMoneda("X"); // Moneda inválida
+        prestamoDto.setMoneda("X");
 
         TipoMonedaNoSoportadaException exception = assertThrows(TipoMonedaNoSoportadaException.class, 
             () -> prestamoValidator.validate(prestamoDto));
@@ -120,7 +120,7 @@ class PrestamoValidatorTest {
         PrestamoDto prestamoDto = new PrestamoDto();
         prestamoDto.setNumeroCliente(123456);
         prestamoDto.setPlazoMeses(24);
-        prestamoDto.setMonto(0); // Monto no válido
+        prestamoDto.setMonto(0); 
         prestamoDto.setMoneda("D");
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 

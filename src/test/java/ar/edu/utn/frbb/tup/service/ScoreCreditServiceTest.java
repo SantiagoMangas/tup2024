@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RandomEstadoServiceTest {
+class ScoreCreditServiceTest {
 
     private ScoreCreditService randomEstadoService;
 
@@ -25,13 +25,13 @@ class RandomEstadoServiceTest {
         assertEquals("DNI inválido", exception.getMessage());
     }
 
-    @RepeatedTest(10) // Repite el test 10 veces para verificar resultados aleatorios
+    @RepeatedTest(10) 
     void verifyEstado_DniValido_ReturnsTrueOrFalse() {
         long dniValido = 12345678L;
 
         assertDoesNotThrow(() -> {
             boolean resultado = randomEstadoService.verifyEstado(dniValido);
-            assertTrue(resultado || !resultado); // Siempre será true porque cubre ambos casos
+            assertTrue(resultado || !resultado); 
         });
     }
 

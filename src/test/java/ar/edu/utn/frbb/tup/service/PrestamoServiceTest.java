@@ -115,7 +115,7 @@ class PrestamoServiceTest {
         long dni = 12345678L;
         Prestamo prestamo = new Prestamo(dni, 12, 1000L, TipoMoneda.PESOS);
 
-        when(clienteService.buscarClientePorDni(dni)).thenReturn(null); // Cliente existe
+        when(clienteService.buscarClientePorDni(dni)).thenReturn(null);
         when(prestamoDao.getPrestamosByCliente(dni)).thenReturn(Collections.singletonList(prestamo));
 
         List<Prestamo> prestamos = prestamoService.getPrestamosByCliente(dni);

@@ -1,4 +1,4 @@
-package ar.edu.utn.frbb.tup.validator;
+package ar.edu.utn.frbb.tup.controller.validator;
 
 import ar.edu.utn.frbb.tup.controller.dto.ClienteDto;
 import ar.edu.utn.frbb.tup.controller.validator.ClienteValidator;
@@ -33,7 +33,7 @@ class ClienteValidatorTest {
     @Test
     void validateDatosCompletos_MissingFields() {
         ClienteDto clienteDto = new ClienteDto();
-        clienteDto.setNombre(""); // Missing name
+        clienteDto.setNombre(""); 
 
         CampoVacioException exception = assertThrows(CampoVacioException.class, 
             () -> clienteValidator.validateDatosCompletos(clienteDto));
@@ -52,7 +52,7 @@ class ClienteValidatorTest {
     @Test
     void validateTipoPersona_InvalidType() {
         ClienteDto clienteDto = new ClienteDto();
-        clienteDto.setTipoPersona("X"); // Invalid type
+        clienteDto.setTipoPersona("X");
 
         TipoPersonaErroneoException exception = assertThrows(TipoPersonaErroneoException.class, 
             () -> clienteValidator.validateTipoPersona(clienteDto));

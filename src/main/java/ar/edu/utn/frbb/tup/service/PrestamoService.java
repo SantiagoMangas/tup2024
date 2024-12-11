@@ -45,7 +45,6 @@ public class PrestamoService {
             return resultado;
         }
     
-        // Realiza las operaciones necesarias con cliente y cuenta
         clienteService.agregarPrestamo(prestamo, prestamo.getNumeroCliente());
         cuentaService.actualizarCuenta(prestamo);
         prestamoDao.save(prestamo);

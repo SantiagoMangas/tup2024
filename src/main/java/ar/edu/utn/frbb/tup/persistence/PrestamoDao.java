@@ -17,7 +17,6 @@ public class PrestamoDao extends AbstractBaseDao {
 
     private long nextId = 1;
 
-    // Guardar un préstamo
     public void save(Prestamo prestamo) {
         if (prestamo.getId() == 0) {
             prestamo.setId(nextId++);
@@ -26,7 +25,6 @@ public class PrestamoDao extends AbstractBaseDao {
         getInMemoryDatabase().put(entity.getId(), entity);
     }
 
-    // Buscar un préstamo por ID
     public Prestamo find(long id) {
         if (getInMemoryDatabase().get(id) == null) {
             return null;
@@ -34,7 +32,6 @@ public class PrestamoDao extends AbstractBaseDao {
         return ((PrestamoEntity) getInMemoryDatabase().get(id)).toPrestamo();
     }
 
-    // Obtener todos los préstamos de un cliente por su número de cliente (DNI)
     public List<Prestamo> getPrestamosByCliente(long numeroCliente) {
         List<Prestamo> prestamosDelCliente = new ArrayList<>();
 
