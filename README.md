@@ -63,34 +63,35 @@ El sistema utiliza excepciones personalizadas para manejar errores de manera det
 - **Spring Boot** (versión 2.7 o superior).
 - Base de datos configurada según las dependencias de los DAOs.
 
+
 ## Ejemplo de Uso
 
 ### Crear Cliente
+Enviar una petición `POST` a `/api/cliente` con el cuerpo basado en **ClienteDto**:
 ```json
-POST /api/cliente
 {
-  "nombre": "Juan Perez",
+  "nombre": "Juan",
+  "apellido": "Perez",
   "dni": 12345678,
-  "edad": 30,
-  "tipoPersona": "FISICA"
+  "fechaNacimiento": "1990-05-15",
+  "tipoPersona": "F",
+  "banco": "Banco Nacional"
 }
 ```
 
 ### Crear Cuenta
+Enviar una petición `POST` a `/api/cuenta` con el cuerpo basado en **CuentaDto**:
 ```json
-POST /api/cuenta
 {
-  "numeroCuenta": 1001,
-  "dniTitular": 12345678,
-  "tipoCuenta": "CAJA_AHORRO",
-  "moneda": "PESOS",
-  "balance": 0.0
+  "tipoCuenta": "A",
+  "moneda": "P",
+  "dniTitular": 12345678
 }
 ```
 
 ### Solicitar Préstamo
+Enviar una petición `POST` a `/api/prestamo` con el cuerpo basado en **PrestamoDto**:
 ```json
-POST /api/prestamo
 {
   "numeroCliente": 12345678,
   "monto": 100000,
